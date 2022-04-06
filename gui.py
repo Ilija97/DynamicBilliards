@@ -3,7 +3,7 @@ import PySimpleGUI as sg
 import numpy as np
 
 layout = [[sg.Text("Dynamical Billiards Generator")],
-          [sg.Combo(['Square', 'Circle', 'Elipse','Triangle', 'Stadium', 'Bunimovich Billiard'],default_value='Square',key='billiard_table')],
+          [sg.Combo(['Square', 'Circle', 'Elipse','Triangle', 'Stadium', 'Bunimovich Billiard', 'Hyperbolic'],default_value='Square',key='billiard_table')],
           [sg.Text('Angle 1', size=(15, 1)), sg.InputText()],
           [sg.Text('Angle 2', size=(15, 1)), sg.InputText()],
           [sg.Text('Iterations', size=(15, 1)), sg.InputText()],
@@ -35,6 +35,8 @@ while True:
             pp.printStadiumBilliard(float(values[0]), float(values[1]), values[2])
         elif values['billiard_table'] == 'Bunimovich Billiard':
             pp.printBunimovichBilliard(float(values[0]), float(values[1]), values[2])
+        elif values['billiard_table'] == 'Hyperbolic':
+            pp.printHyperbolicBilliard(float(values[0]), float(values[1]), values[2])
 
 
     if event == sg.WIN_CLOSED:
