@@ -599,7 +599,7 @@ class EllipticalBilliardBoard(BilliardBoard):
         # Calculate all angles and trig funcs
         angles = np.linspace(0, 2*np.pi, 1000)
         cosine = np.cos(angles)
-        sine = np. sin(angles)
+        sine = np.sin(angles)
         # Calculate the radius of the ellipse at theta
         rs = self.a*self.b/np.sqrt((self.b*cosine)**2+(self.a*sine)**2)
         # x and y values
