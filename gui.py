@@ -20,7 +20,7 @@ while True:
     # presses the OK button
     values[0] = float(values[0]) * np.pi / 180
     values[1] = float(values[1]) * np.pi / 180
-    values[2] = int(values[2])
+    values[2] = int(values[2]) + 1
 
     if event == "Generate":
         if values['billiard_table'] == 'Square':

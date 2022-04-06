@@ -565,6 +565,7 @@ class PolygonBilliardBoard(BilliardBoard):
                     # Here the ball should stop, effectively so close to the 
                     # corner it's at the corner
                     end = True
+
         if no_end:
             tup = (correct_coll, correct_bound_dir)
         else:
@@ -797,6 +798,7 @@ class EllipticalBilliardBoard(BilliardBoard):
                                            [tangent_direct_y]])
             if closest_inter:
                 boundary_direction *= -1
+
         if return_lamba:
             tup = (collision_point, boundary_direction, lambda_ball)
         else:

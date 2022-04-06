@@ -56,7 +56,7 @@ def printTriangleBilliard(start_angle_1, start_angle_2, num_collisions):
     printPositionPlot(tri_boards, 'Triangle', [start_angle_1, start_angle_2])
 
 def printCircleBilliard(start_angle_1, start_angle_2, num_collisions):
-    circ_start_position = np.array([[-0.5], [0]])
+    circ_start_position = np.array([[0], [-1]])
     circ_para_1 = (num_collisions, (1, 1), circ_start_position, start_angle_1)
     circ_para_2 = (num_collisions, (1, 1), circ_start_position, start_angle_2)
     circ_board_1 = BC.EllipticalBilliardBoard(*circ_para_1)
