@@ -43,7 +43,7 @@ def printSquareBilliard(start_angle_1, start_angle_2, num_collisions):
     square_board_1 = BC.PolygonBilliardBoard(*sq_para_1)
     square_board_2 = BC.PolygonBilliardBoard(*sq_para_2)
     square_boards = [square_board_1, square_board_2]
-    printPositionPlot(square_boards, 'Square', [start_angle_1, start_angle_2])
+    return printPositionPlot(square_boards, 'Square', [start_angle_1, start_angle_2])
 
 def printTriangleBilliard(start_angle_1, start_angle_2, num_collisions):
     tri_start_position = np.zeros((2, 1))
@@ -53,7 +53,7 @@ def printTriangleBilliard(start_angle_1, start_angle_2, num_collisions):
     tri_board_1 = BC.PolygonBilliardBoard(*tri_para_1)
     tri_board_2 = BC.PolygonBilliardBoard(*tri_para_2)
     tri_boards = [tri_board_1, tri_board_2]
-    printPositionPlot(tri_boards, 'Triangle', [start_angle_1, start_angle_2])
+    return printPositionPlot(tri_boards, 'Triangle', [start_angle_1, start_angle_2])
 
 def printCircleBilliard(start_angle_1, start_angle_2, num_collisions):
     circ_start_position = np.array([[0], [-1]])
@@ -73,7 +73,7 @@ def printElipseBilliard(start_angle_1, start_angle_2, num_collisions):
     ellipse_board_1 = BC.EllipticalBilliardBoard(*ellipse_para_1)
     ellipse_board_2 = BC.EllipticalBilliardBoard(*ellipse_para_2)
     ellipse_boards = [ellipse_board_1, ellipse_board_2]
-    printPositionPlot(ellipse_boards, 'Ellipse', [start_angle_1, start_angle_2])
+    return printPositionPlot(ellipse_boards, 'Ellipse', [start_angle_1, start_angle_2])
 
 
 def printHyperbolicBilliard(start_angle_1, start_angle_2, num_collisions):
@@ -85,7 +85,7 @@ def printHyperbolicBilliard(start_angle_1, start_angle_2, num_collisions):
     hb_board_1 = BC.HyperbolicBilliardBoard(*hb_para_1)
     hb_board_2 = BC.HyperbolicBilliardBoard(*hb_para_2)
     hb_boards = [hb_board_1, hb_board_2]
-    printPositionPlot(hb_boards, 'Hyperbolic', [start_angle_1, start_angle_2])
+    return printPositionPlot(hb_boards, 'Hyperbolic', [start_angle_1, start_angle_2])
 
 
 def printStadiumBilliard(start_angle_1, start_angle_2, num_collisions):
@@ -97,7 +97,7 @@ def printStadiumBilliard(start_angle_1, start_angle_2, num_collisions):
     stad_board_1 = BC.StadiumBilliardBoard(*stad_para_1)
     stad_board_2 = BC.StadiumBilliardBoard(*stad_para_2)
     stad_boards = [stad_board_1, stad_board_2]
-    printPositionPlot(stad_boards, 'Stadium', [start_angle_1, start_angle_2])
+    return printPositionPlot(stad_boards, 'Stadium', [start_angle_1, start_angle_2])
 
 
 def printBunimovichBilliard(start_angle_1, start_angle_2, num_collisions):
@@ -109,7 +109,7 @@ def printBunimovichBilliard(start_angle_1, start_angle_2, num_collisions):
     bunimovich_board_1 = BC.BunimovichBilliardBoard(*bunimovich_para_1)
     bunimovich_board_2 = BC.BunimovichBilliardBoard(*bunimovich_para_2)
     bunimovich_boards = [bunimovich_board_1, bunimovich_board_2]
-    printPositionPlot(bunimovich_boards, 'Bunimovich', [start_angle_1, start_angle_2])
+    return printPositionPlot(bunimovich_boards, 'Bunimovich', [start_angle_1, start_angle_2])
 
 
 def printLorentzGasBilliard(start_angle_1, start_angle_2, num_collisions):
@@ -121,7 +121,7 @@ def printLorentzGasBilliard(start_angle_1, start_angle_2, num_collisions):
     lg_board_1 = BC.LorentzGasBilliardBoard(*lg_para_1)
     lg_board_2 = BC.LorentzGasBilliardBoard(*lg_para_2)
     lg_boards = [lg_board_1, lg_board_2]
-    printPositionPlot(lg_boards, 'Lorentz Gas', [start_angle_1, start_angle_2])
+    return printPositionPlot(lg_boards, 'Lorentz Gas', [start_angle_1, start_angle_2])
 
 
 def printHyperbolicLorentzGasBilliard(start_angle_1, start_angle_2, num_collisions):
@@ -133,4 +133,4 @@ def printHyperbolicLorentzGasBilliard(start_angle_1, start_angle_2, num_collisio
     hlg_board_1 = BC.HyperbolicLorentzGasBilliardBoard(*hlg_para_1)
     hlg_board_2 = BC.HyperbolicLorentzGasBilliardBoard(*hlg_para_2)
     hlg_boards = [hlg_board_1, hlg_board_2]
-    printPositionPlot(hlg_boards, 'Hyperbolic Lorentz Gas', [start_angle_1, start_angle_2])
+    return printPositionPlot(hlg_boards, 'Hyperbolic Lorentz Gas', [start_angle_1, start_angle_2])

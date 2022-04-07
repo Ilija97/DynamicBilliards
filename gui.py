@@ -17,18 +17,28 @@ def delete_fig_agg(fig_agg):
     plt.close('all')
 
 
-layout = [[sg.Text("Dynamical Billiards Generator")],
-          [sg.Combo(['Square', 'Circle', 'Elipse','Triangle', 'Stadium', 'Bunimovich Billiard', 'Hyperbolic'], size=(14, 1)
-                    ,default_value='Circle',key='billiard_table')],
-          [sg.Text('Angle 1', size=(7, 1)), sg.InputText(size=(5, 1))],
-          [sg.Text('Angle 2', size=(7, 1)), sg.InputText(size=(5, 1))],
-          [sg.Text('Iterations', size=(7, 1)), sg.InputText(size=(5, 1))],
-          [sg.Button("Generate")],
+layout = [[sg.Text("Dynamical Billiards Generator", font = ("Arial", 15))],
+          [sg.Text("Ilija Gračanin, 2022", font = ("Arial", 8))],
+          [sg.Frame(layout=[[sg.Combo(['Square', 'Circle', 'Elipse', 'Triangle', 'Stadium', 'Bunimovich Billiard',
+                                       'Hyperbolic'], size=(17, 1)
+                                      , default_value='Circle', key='billiard_table')],
+                            [sg.Text('Angle 1', size=(7, 1)), sg.InputText(size=(8, 1))],
+                            [sg.Text('Angle 2', size=(7, 1)), sg.InputText(size=(8, 1))],
+                            [sg.Text('Iterations', size=(7, 1)), sg.InputText(size=(8, 1))],
+                            [sg.Button("Generate")]],
+                    title='Parameters', title_color='red', relief=sg.RELIEF_SUNKEN,
+                    tooltip='Please fill in the parameters'),
+           sg.Frame(layout=[[sg.Text('The angle_1 is the initial angle for the billiard in the left figure, while the angle_2 is the '
+                                     'initial angle for the billiard in the right figure.\n'
+                                     'Angles are in degrees.\n'
+                                     'Iterations is the number of collisions of the billiard ball with the boundary.')]],
+                    title='Instructions', title_color='red', relief=sg.RELIEF_SUNKEN),
+           ],
           [sg.Canvas(key='-CANVAS-')],
           ]
 
 # Create the window
-window = sg.Window("Dynamical Billiards Generator", layout, size=(1200, 700), finalize=True)
+window = sg.Window("Dynamical Billiards Generator", layout, size=(1200, 800), finalize=True, resizable=True)
 
 fig_agg = None
 # Create an event loop
@@ -45,23 +55,32 @@ while True:
             delete_fig_agg(fig_agg)
 
         if values['billiard_table'] == 'Square':
-            pp.printSquareBilliard(float(values[0]), float(values[1]), values[2])
+            fig_agg = draw_figure(window['-CANVAS-'].TKCanvas,
+                                  pp.printSquareBilliard(float(values[0]), float(values[1]), values[2]))
 
         elif values['billiard_table'] == 'Triangle':
-            pp.printTriangleBilliard(float(values[0]), float(values[1]), values[2])
+            fig_agg = draw_figure(window['-CANVAS-'].TKCanvas,
+                                  pp.printTriangleBilliard(float(values[0]), float(values[1]), values[2]))
 
         elif values['billiard_table'] == 'Circle':
-            fig_agg = draw_figure(window['-CANVAS-'].TKCanvas, pp.printCircleBilliard(float(values[0]), float(values[1]), values[2]))
+            fig_agg = draw_figure(window['-CANVAS-'].TKCanvas,
+                                  pp.printCircleBilliard(float(values[0]), float(values[1]), values[2]))
 
         elif values['billiard_table'] == 'Elipse':
-            pp.printElipseBilliard(float(values[0]), float(values[1]), values[2])
-        elif values['billiard_table'] == 'Stadium':
-            pp.printStadiumBilliard(float(values[0]), float(values[1]), values[2])
-        elif values['billiard_table'] == 'Bunimovich Billiard':
-            pp.printBunimovichBilliard(float(values[0]), float(values[1]), values[2])
-        elif values['billiard_table'] == 'Hyperbolic':
-            pp.printHyperbolicBilliard(float(values[0]), float(values[1]), values[2])
+            fig_agg = draw_figure(window['-CANVAS-'].TKCanvas,
+                                  pp.printElipseBilliard(float(values[0]), float(values[1]), values[2]))
 
+        elif values['billiard_table'] == 'Stadium':
+            fig_agg = draw_figure(window['-CANVAS-'].TKCanvas,
+                                  pp.printStadiumBilliard(float(values[0]), float(values[1]), values[2]))
+
+        elif values['billiard_table'] == 'Bunimovich Billiard':
+            fig_agg = draw_figure(window['-CANVAS-'].TKCanvas,
+                                  pp.printBunimovichBilliard(float(values[0]), float(values[1]), values[2]))
+
+        elif values['billiard_table'] == 'Hyperbolic':
+            fig_agg = draw_figure(window['-CANVAS-'].TKCanvas,
+                                  pp.printHyperbolicBilliard(float(values[0]), float(values[1]), values[2]))
 
     if event == sg.WIN_CLOSED:
         break
