@@ -16,7 +16,7 @@ def printPositionPlot(board_list, title, start_angles):
     filename = os.path.join(FIG_DIR, filename)
     title = "Billiard table - %s" % title
     # Generate basic plot properties
-    fig, ax = plt.subplots(nrows=1, ncols=len(board_list))
+    fig, ax = plt.subplots(nrows=1, ncols=len(board_list), figsize=(15,7))
     fig.suptitle(title, fontsize=14, y=1)
     for i in range(len(board_list)):
         # Retrieve all relevant data
@@ -25,11 +25,11 @@ def printPositionPlot(board_list, title, start_angles):
         board_list[i].drawBoard(ax[i])
         # Draws the lines between collision points, i.e.
         ax[i].plot(collision_points[0], collision_points[1], color="b", linewidth=0.5)
-        ax[i].set_xlabel(round(eval("start_angles[i]")/np.pi*180))
-        
+        ax[i].set_xlabel(eval("start_angles[i]")/np.pi*180)
     fig.tight_layout()
     fig.savefig(filename, format='jpeg', pil_kwargs={'quality': 100}, dpi=1000)
-    plt.show()
+    # plt.show()
+    return plt.gcf()
 
 def printSquareBilliard(start_angle_1, start_angle_2, num_collisions):
     print("generating square billiard plot")
@@ -62,7 +62,7 @@ def printCircleBilliard(start_angle_1, start_angle_2, num_collisions):
     circ_board_1 = BC.EllipticalBilliardBoard(*circ_para_1)
     circ_board_2 = BC.EllipticalBilliardBoard(*circ_para_2)
     circ_boards = [circ_board_1, circ_board_2]
-    printPositionPlot(circ_boards, 'Circle', [start_angle_1, start_angle_2])
+    return printPositionPlot(circ_boards, 'Circle', [start_angle_1, start_angle_2])
 
 def printElipseBilliard(start_angle_1, start_angle_2, num_collisions):
     ellipse_start_position_1 = np.array([[-0.1], [0]])

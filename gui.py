@@ -1,21 +1,39 @@
 import ProducePlots as pp
 import PySimpleGUI as sg
 import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
+
+def draw_figure(canvas, figure):
+    figure_canvas_agg = FigureCanvasTkAgg(figure, canvas)
+    figure_canvas_agg.draw()
+    figure_canvas_agg.get_tk_widget().pack(side='top', fill='both', expand=1)
+    return figure_canvas_agg
+
+
+def delete_fig_agg(fig_agg):
+    fig_agg.get_tk_widget().forget()
+    plt.close('all')
+
 
 layout = [[sg.Text("Dynamical Billiards Generator")],
-          [sg.Combo(['Square', 'Circle', 'Elipse','Triangle', 'Stadium', 'Bunimovich Billiard', 'Hyperbolic'],default_value='Square',key='billiard_table')],
-          [sg.Text('Angle 1', size=(15, 1)), sg.InputText()],
-          [sg.Text('Angle 2', size=(15, 1)), sg.InputText()],
-          [sg.Text('Iterations', size=(15, 1)), sg.InputText()],
-          [sg.Button("Generate")]]
+          [sg.Combo(['Square', 'Circle', 'Elipse','Triangle', 'Stadium', 'Bunimovich Billiard', 'Hyperbolic'], size=(14, 1)
+                    ,default_value='Circle',key='billiard_table')],
+          [sg.Text('Angle 1', size=(7, 1)), sg.InputText(size=(5, 1))],
+          [sg.Text('Angle 2', size=(7, 1)), sg.InputText(size=(5, 1))],
+          [sg.Text('Iterations', size=(7, 1)), sg.InputText(size=(5, 1))],
+          [sg.Button("Generate")],
+          [sg.Canvas(key='-CANVAS-')],
+          ]
 
 # Create the window
-window = sg.Window("Dynamical Billiards Generator", layout)
+window = sg.Window("Dynamical Billiards Generator", layout, size=(1200, 700), finalize=True)
 
+fig_agg = None
 # Create an event loop
 while True:
     event, values = window.read()
-    print(values)
     # End program if user closes window or
     # presses the OK button
     values[0] = float(values[0]) * np.pi / 180
@@ -23,12 +41,18 @@ while True:
     values[2] = int(values[2]) + 1
 
     if event == "Generate":
+        if fig_agg is not None:
+            delete_fig_agg(fig_agg)
+
         if values['billiard_table'] == 'Square':
             pp.printSquareBilliard(float(values[0]), float(values[1]), values[2])
+
         elif values['billiard_table'] == 'Triangle':
             pp.printTriangleBilliard(float(values[0]), float(values[1]), values[2])
+
         elif values['billiard_table'] == 'Circle':
-            pp.printCircleBilliard(float(values[0]), float(values[1]), values[2])
+            fig_agg = draw_figure(window['-CANVAS-'].TKCanvas, pp.printCircleBilliard(float(values[0]), float(values[1]), values[2]))
+
         elif values['billiard_table'] == 'Elipse':
             pp.printElipseBilliard(float(values[0]), float(values[1]), values[2])
         elif values['billiard_table'] == 'Stadium':
