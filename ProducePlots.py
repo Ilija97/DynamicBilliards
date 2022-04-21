@@ -28,7 +28,8 @@ def printPositionPlot(board_list, title, start_angles):
     return plt.gcf()
 
 
-def animate(board, title, start_angle, figsize):
+def animate(board, title, start_angle, figsize, fps):
+    print('animate')
     filename = "Billiard_table_%s.gif" % title
     filename = os.path.join(FIG_DIR, filename)
     title = "Billiard table - %s" % title
@@ -42,8 +43,6 @@ def animate(board, title, start_angle, figsize):
     ln, = plt.plot([], [], linewidth=1, color='r')
 
     def init_func():
-        # ax.set_xlim = (-1.1, 1.1)
-        # ax.set_ylim = ylim
         ax.set_xlabel(start_angle / np.pi * 180)
         ax.set_facecolor('xkcd:black')
         fig.patch.set_facecolor('xkcd:black')
@@ -56,27 +55,27 @@ def animate(board, title, start_angle, figsize):
         print(i)
         return ln
 
-    writergif = PillowWriter()
+    writergif = PillowWriter(fps=fps)
     anim = FuncAnimation(fig, update, frames=np.arange(0, 50, 1, dtype=int), init_func=init_func)
     anim.save(filename, writer=writergif)
 
 
-def animateCircleBilliard(start_angle, num_collisions=100):
+def animateCircleBilliard(start_angle, num_collisions=50, fps=30):
     circ_start_position = np.array([[0], [-1]])
     circ_para = (num_collisions, (1, 1), circ_start_position, start_angle)
     circ_board = BC.EllipticalBilliardBoard(*circ_para)
-    animate(circ_board, 'Circle', start_angle, figsize=(10,10))
+    animate(circ_board, 'Circle', start_angle, figsize=(10,10), fps=fps)
 
-# animateCircleBilliard(1.3223)
+# animateCircleBilliard(1.3223, fps=40)
 
-def animateElipseBilliard(start_angle, num_collisions=50):
+def animateElipseBilliard(start_angle, num_collisions=50, fps=30):
     ellipse_start_position = np.array([[-1.9], [0]])
     ellipse_para = (num_collisions, (2, 1), ellipse_start_position, start_angle)
     ellipse_board = BC.EllipticalBilliardBoard(*ellipse_para)
-    animate(ellipse_board, 'Elipse', start_angle, figsize=(10,6))
+    animate(ellipse_board, 'Elipse', start_angle, figsize=(10,6), fps=fps)
 
 
-animateElipseBilliard(1.3223)
+# animateElipseBilliard(1.3223, fps=3)
 
 
 def printSquareBilliard(start_angle_1, start_angle_2, num_collisions):

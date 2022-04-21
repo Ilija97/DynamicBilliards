@@ -31,7 +31,7 @@ layout = [[sg.Text("Dynamical Billiards Generator", font = ("Arial", 15))],
 
            sg.Frame(layout=[[sg.Combo(['Square', 'Circle', 'Semi circle', 'Elipse', 'Equilateral triangle', 'Right angled triangle', 'Stadium', 'Bunimovich Billiard',
                                        'Hyperbolic'], size=(17, 1)
-                                      , default_value='Circle', key='billiard_table')],
+                                      , default_value='Circle', key='billiard_table_anim')],
                             [sg.Text('Angle', size=(7, 1)), sg.InputText(size=(8, 1))],
                             [sg.Text('FPS', size=(7, 1)), sg.InputText(size=(8, 1))],
                             [sg.Button("Generate gif")]],
@@ -102,16 +102,15 @@ while True:
             fig_agg = draw_figure(window['-CANVAS-'].TKCanvas,
                                   pp.printHyperbolicBilliard(float(values[0]), float(values[1]), values[2]))
 
-    elif event == "Generate gif":
-
+    if event == "Generate gif":
         anim_angle = float(values[3]) * np.pi / 180
-        print(anim_angle)
         fps = int(values[4])
-        print(fps)
 
-        if values['billiard_table'] == 'Circle':
-            fig_agg = draw_figure(window['-CANVAS-'].TKCanvas,
-                                  pp.animateCircleBilliard(anim_angle, fps=3))
+        if values['billiard_table_anim'] == 'Circle':
+            pp.animateCircleBilliard(anim_angle, fps=fps)
+
+        if values['billiard_table_anim'] == 'Elipse':
+            pp.animateElipseBilliard(anim_angle, fps=fps)
 
     if event == sg.WIN_CLOSED:
         break
