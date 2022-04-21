@@ -586,7 +586,7 @@ class EllipticalBilliardBoard(BilliardBoard):
     
     # OVERRIDDEN METHODS #
 
-    def drawBoard(self, ax, legend_label = None):
+    def drawBoard(self, ax, legend_label = None, color='k'):
         '''
             Draws the billiard board
 
@@ -607,7 +607,7 @@ class EllipticalBilliardBoard(BilliardBoard):
         xs = self.centre[0][0] + rs * cosine
         ys = self.centre[1][0] + rs * sine
         # Draw the board
-        ax.plot(xs, ys, color = 'k', linewidth = 1, label = legend_label)
+        ax.plot(xs, ys, color = color, linewidth = 1, label = legend_label)
 
     ## PRIVATE METHODS ##
 
