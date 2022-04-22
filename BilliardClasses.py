@@ -285,7 +285,7 @@ class PolygonBilliardBoard(BilliardBoard):
 
     # OVERRIDDEN METHODS #
 
-    def drawBoard(self, ax, legend_label = None):
+    def drawBoard(self, ax, legend_label = None, color='k'):
         '''
             Draws the billiard board
 
@@ -309,7 +309,7 @@ class PolygonBilliardBoard(BilliardBoard):
                 point_2 = self.vertices[i+1]
             xs = [point_1[0][0], point_2[0][0]]
             ys = [point_1[1][0], point_2[1][0]]
-            ax.plot(xs, ys, color='k', linewidth=1, label=legend_labels[i])
+            ax.plot(xs, ys, color=color, linewidth=1, label=legend_labels[i])
 
     ## PRIVATE METHODS ##
 
@@ -1354,7 +1354,7 @@ class StadiumBilliardBoard(PolygonBilliardBoard, EllipticalBilliardBoard):
     
     # OVERRIDDEN METHODS #
 
-    def drawBoard(self, ax, legend_label = None):
+    def drawBoard(self, ax, legend_label = None, color='k'):
         '''
             Draws the billiard board
 
@@ -1384,7 +1384,7 @@ class StadiumBilliardBoard(PolygonBilliardBoard, EllipticalBilliardBoard):
         ys = np.concatenate((y_cap_one, y_rect_top, y_cap_two[::-1],
                              y_rect_bottom))
         # Draw the board
-        ax.plot(xs, ys, color = 'k', linewidth = 1, label = legend_label)
+        ax.plot(xs, ys, color=color, linewidth = 1, label = legend_label)
 
     ## PRIVATE METHODS ##
 
@@ -1651,7 +1651,7 @@ class BunimovichBilliardBoard(EllipticalBilliardBoard, PolygonBilliardBoard):
     
     # OVERRIDDEN METHODS #
 
-    def drawBoard(self, ax, legend_label = None):
+    def drawBoard(self, ax, legend_label = None, color='k'):
         '''
             Draws the billiard board
 
@@ -1685,7 +1685,7 @@ class BunimovichBilliardBoard(EllipticalBilliardBoard, PolygonBilliardBoard):
         xs = np.concatenate((x_ellipse, self.vertices[0][0]))
         ys = np.concatenate((y_ellipse, self.vertices[0][1]))
         # Draw the board
-        ax.plot(xs, ys, color = 'k', linewidth = 1, label = legend_label)
+        ax.plot(xs, ys, color=color, linewidth = 1, label = legend_label)
 
     ## PRIVATE METHODS ##
 

@@ -5,14 +5,13 @@ from matplotlib import pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
 
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
-# Folder to save the plots in
 FIG_DIR = 'Plot images/'
 FIG_DIR = os.path.join(CURRENT_DIR, FIG_DIR)
+NUM_OF_COLLISIONS = 50
 
 
 def printPositionPlot(board_list, title, start_angles):
     title = "Billiard table - %s" % title
-    # Generate basic plot properties
     fig, ax = plt.subplots(nrows=1, ncols=len(board_list), figsize=(15, 7))
     fig.suptitle(title, fontsize=14, y=1)
     for i in range(len(board_list)):
@@ -60,31 +59,63 @@ def animate(board, title, start_angle, figsize, fps):
     anim.save(filename, writer=writergif)
 
 
-def animateCircleBilliard(start_angle, num_collisions=50, fps=30):
+# ANIMATIONS #
+
+def animateSquareBilliard(start_angle, num_collisions=NUM_OF_COLLISIONS, fps=30):
+    square_start_position = np.array([[0], [-1]])
+    square_vertices = [(1, 1), (-1, 1), (-1, -1), (1, -1)]
+    sq_para = (num_collisions, square_vertices, square_start_position, start_angle)
+    square_board = BC.PolygonBilliardBoard(*sq_para)
+    animate(square_board, 'Square', start_angle, figsize=(10, 10), fps=fps)
+    return 0
+
+
+def animateTriangleBilliard(start_angle, num_collisions=NUM_OF_COLLISIONS, fps=30):
+    tri_start_position = np.zeros((2, 1))
+    tri_para = (num_collisions, 'triangle', tri_start_position, start_angle)
+    tri_board = BC.PolygonBilliardBoard(*tri_para)
+    animate(tri_board, 'Triangle', start_angle, figsize=(10, 10), fps=fps)
+    return 0
+
+
+def animateRightAnlgeTriangleBilliard(start_angle, num_collisions=NUM_OF_COLLISIONS, fps=30):
+    tri_start_position = np.zeros((2, 1))
+    triangle_vertices = [(1, 1), (-1, 1), (1, -1)]
+    tri_para = (num_collisions, triangle_vertices, tri_start_position, start_angle)
+    tri_board = BC.PolygonBilliardBoard(*tri_para)
+    animate(tri_board, 'RightAngleTriangle', start_angle, figsize=(10, 10), fps=fps)
+    return 0
+
+
+def animateCircleBilliard(start_angle, num_collisions=NUM_OF_COLLISIONS, fps=30):
     circ_start_position = np.array([[0], [-1]])
     circ_para = (num_collisions, (1, 1), circ_start_position, start_angle)
     circ_board = BC.EllipticalBilliardBoard(*circ_para)
     animate(circ_board, 'Circle', start_angle, figsize=(10,10), fps=fps)
+    return 0
 
-# animateCircleBilliard(1.3223, fps=40)
 
-def animateElipseBilliard(start_angle, num_collisions=50, fps=30):
+def animateSemiCircleBilliard(start_angle, num_collisions=NUM_OF_COLLISIONS, fps=30):
+    semi_circle_start = np.array([[0], [0.999999]])
+    semi_circle_para = (num_collisions, (1, 1, 0), semi_circle_start, start_angle)
+    semi_circle_board = BC.BunimovichBilliardBoard(*semi_circle_para)
+    animate(semi_circle_board, 'SemiCircle', start_angle, figsize=(10, 6), fps=fps)
+    return 0
+
+
+def animateElipseBilliard(start_angle, num_collisions=NUM_OF_COLLISIONS, fps=30):
     ellipse_start_position = np.array([[-1.9], [0]])
     ellipse_para = (num_collisions, (2, 1), ellipse_start_position, start_angle)
     ellipse_board = BC.EllipticalBilliardBoard(*ellipse_para)
     animate(ellipse_board, 'Elipse', start_angle, figsize=(10,6), fps=fps)
+    return 0
 
 
-# animateElipseBilliard(1.3223, fps=3)
-
+# Graphs #
 
 def printSquareBilliard(start_angle_1, start_angle_2, num_collisions):
-    print("generating square billiard plot")
-    # Two billiard maps, same starting position but different launch angles
     square_start_position = np.array([[0], [-1]])
-    # Vertices of the square, going from
     square_vertices = [(1, 1), (-1, 1), (-1, -1), (1, -1)]
-    # Parameters of the square board class to use
     sq_para_1 = (num_collisions, square_vertices, square_start_position, start_angle_1)
     sq_para_2 = (num_collisions, square_vertices, square_start_position, start_angle_2)
     square_board_1 = BC.PolygonBilliardBoard(*sq_para_1)
@@ -95,7 +126,6 @@ def printSquareBilliard(start_angle_1, start_angle_2, num_collisions):
 
 def printTriangleBilliard(start_angle_1, start_angle_2, num_collisions):
     tri_start_position = np.zeros((2, 1))
-    # Parameters of the triangle board class to use
     tri_para_1 = (num_collisions, 'triangle', tri_start_position, start_angle_1)
     tri_para_2 = (num_collisions, 'triangle', tri_start_position, start_angle_2)
     tri_board_1 = BC.PolygonBilliardBoard(*tri_para_1)
@@ -106,14 +136,13 @@ def printTriangleBilliard(start_angle_1, start_angle_2, num_collisions):
 
 def printRightAngleTriangleBilliard(start_angle_1, start_angle_2, num_collisions):
     tri_start_position = np.zeros((2, 1))
-    # Parameters of the triangle board class to use
     triangle_vertices = [(1, 1), (-1, 1), (1, -1)]
     tri_para_1 = (num_collisions, triangle_vertices, tri_start_position, start_angle_1)
     tri_para_2 = (num_collisions, triangle_vertices, tri_start_position, start_angle_2)
     tri_board_1 = BC.PolygonBilliardBoard(*tri_para_1)
     tri_board_2 = BC.PolygonBilliardBoard(*tri_para_2)
     tri_boards = [tri_board_1, tri_board_2]
-    return printPositionPlot(tri_boards, 'Triangle', [start_angle_1, start_angle_2])
+    return printPositionPlot(tri_boards, 'RATriangle', [start_angle_1, start_angle_2])
 
 
 def printCircleBilliard(start_angle_1, start_angle_2, num_collisions):
@@ -135,7 +164,7 @@ def printSemiCircle(start_angle_1, start_angle_2, num_collisions):
     semi_circle_board_1 = BC.BunimovichBilliardBoard(*semi_circle_para_1)
     semi_circle_board_2 = BC.BunimovichBilliardBoard(*semi_circle_para_2)
     semi_circle_boards = [semi_circle_board_1, semi_circle_board_2]
-    return printPositionPlot(semi_circle_boards, 'Bunimovich', [start_angle_1, start_angle_2])
+    return printPositionPlot(semi_circle_boards, 'SemiCircle', [start_angle_1, start_angle_2])
 
 
 def printElipseBilliard(start_angle_1, start_angle_2, num_collisions):

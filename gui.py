@@ -34,6 +34,7 @@ layout = [[sg.Text("Dynamical Billiards Generator", font = ("Arial", 15))],
                                       , default_value='Circle', key='billiard_table_anim')],
                             [sg.Text('Angle', size=(7, 1)), sg.InputText(size=(8, 1))],
                             [sg.Text('FPS', size=(7, 1)), sg.InputText(size=(8, 1))],
+                            [sg.Text('Click Generate gif', size=(14, 1), key='OUTPUT')],
                             [sg.Button("Generate gif")]],
                     title='Gif parameters', title_color='red', relief=sg.RELIEF_SUNKEN,
                     tooltip='Please fill in the parameters'),
@@ -106,11 +107,29 @@ while True:
         anim_angle = float(values[3]) * np.pi / 180
         fps = int(values[4])
 
+        if values['billiard_table_anim'] == 'Square':
+            if pp.animateSquareBilliard(anim_angle, fps=fps) == 0:
+                window['OUTPUT'].update(value="Gif exported")
+
+        if values['billiard_table_anim'] == 'Equilateral triangle':
+            if pp.animateTriangleBilliard(anim_angle, fps=fps) == 0:
+                window['OUTPUT'].update(value="Gif exported")
+
+        if values['billiard_table_anim'] == 'Right angled triangle':
+            if pp.animateRightAnlgeTriangleBilliard(anim_angle, fps=fps) == 0:
+                window['OUTPUT'].update(value="Gif exported")
+
         if values['billiard_table_anim'] == 'Circle':
-            pp.animateCircleBilliard(anim_angle, fps=fps)
+            if pp.animateCircleBilliard(anim_angle, fps=fps) == 0:
+                window['OUTPUT'].update(value="Gif exported")
+
+        if values['billiard_table_anim'] == 'Semi circle':
+            if pp.animateSemiCircleBilliard(anim_angle, fps=fps) == 0:
+                window['OUTPUT'].update(value="Gif exported")
 
         if values['billiard_table_anim'] == 'Elipse':
-            pp.animateElipseBilliard(anim_angle, fps=fps)
+            if pp.animateElipseBilliard(anim_angle, fps=fps) == 0:
+                window['OUTPUT'].update(value="Gif exported")
 
     if event == sg.WIN_CLOSED:
         break
