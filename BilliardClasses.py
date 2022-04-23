@@ -1,11 +1,3 @@
-'''
-    Author: Callum James Gill
-    Email: cjg772@student.bham.ac.uk
-    Creation date: 29/11/19
-    Date submitted: 24/1/20
-    Description: Contains the billard ball and boards classes.
-'''
-
 import numpy as np
 from random import uniform as rand
 from random import randint
@@ -16,24 +8,14 @@ class BilliardBall():
     '''
         Class which defines the ball in the billiard system.
     '''
-
-    ## CONSTRUCTOR ##
-
     def __init__(self, start, angle = None):
         '''
-            Billard ball constructor.
-
-            Note: should never be overridden
-
             Parameters:
                 start : numpy array; 2 x 1 matrix
                     starting point vector defined as a 2x1 column matrix
 
                 angle : None (default) or float (optional)
                     starting angle between 0 and 2 pi
-            
-            Returns:
-                None
         '''
         if angle is not None:
             launch_ang = angle
@@ -56,9 +38,6 @@ class BilliardBall():
                 new_direction : numpy array
                     new direction vector defined as a column matrix of 
                     shape 2x1
-            
-            Returns:
-                None
         '''
         self.direction = new_direction
 

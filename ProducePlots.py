@@ -7,7 +7,7 @@ from matplotlib.animation import FuncAnimation, PillowWriter
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 FIG_DIR = 'Plot images/'
 FIG_DIR = os.path.join(CURRENT_DIR, FIG_DIR)
-NUM_OF_COLLISIONS = 50
+NUM_OF_COLLISIONS = 200
 
 
 def printPositionPlot(board_list, title, start_angles):
@@ -55,7 +55,7 @@ def animate(board, title, start_angle, figsize, fps):
         return ln
 
     writergif = PillowWriter(fps=fps)
-    anim = FuncAnimation(fig, update, frames=np.arange(0, 50, 1, dtype=int), init_func=init_func)
+    anim = FuncAnimation(fig, update, frames=np.arange(0, NUM_OF_COLLISIONS, 1, dtype=int), init_func=init_func)
     anim.save(filename, writer=writergif)
 
 
@@ -108,6 +108,14 @@ def animateElipseBilliard(start_angle, num_collisions=NUM_OF_COLLISIONS, fps=30)
     ellipse_para = (num_collisions, (2, 1), ellipse_start_position, start_angle)
     ellipse_board = BC.EllipticalBilliardBoard(*ellipse_para)
     animate(ellipse_board, 'Elipse', start_angle, figsize=(10,6), fps=fps)
+    return 0
+
+
+def animateElipseBilliard2(start_angle, num_collisions=NUM_OF_COLLISIONS, fps=30):
+    ellipse_start_position = np.array([[-0.1], [0]])
+    ellipse_para = (num_collisions, (2, 1), ellipse_start_position, start_angle)
+    ellipse_board = BC.EllipticalBilliardBoard(*ellipse_para)
+    animate(ellipse_board, 'Elipse2', start_angle, figsize=(10,6), fps=fps)
     return 0
 
 
@@ -170,7 +178,6 @@ def printSemiCircle(start_angle_1, start_angle_2, num_collisions):
 def printElipseBilliard(start_angle_1, start_angle_2, num_collisions):
     ellipse_start_position_1 = np.array([[-0.1], [0]])
     ellipse_start_position_2 = np.array([[-1.9], [0]])
-    # Parameters of the ellipse board class to use
     ellipse_para_1 = (num_collisions, (2, 1), ellipse_start_position_1, start_angle_1)
     ellipse_para_2 = (num_collisions, (2, 1), ellipse_start_position_2, start_angle_2)
     ellipse_board_1 = BC.EllipticalBilliardBoard(*ellipse_para_1)
