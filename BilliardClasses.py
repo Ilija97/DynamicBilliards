@@ -2,21 +2,12 @@ import numpy as np
 from random import uniform as rand
 from random import randint
 
-#### BILLIARD BALL CLASS ####
-
 class BilliardBall():
     '''
         Class which defines the ball in the billiard system.
     '''
     def __init__(self, start, angle = None):
-        '''
-            Parameters:
-                start : numpy array; 2 x 1 matrix
-                    starting point vector defined as a 2x1 column matrix
 
-                angle : None (default) or float (optional)
-                    starting angle between 0 and 2 pi
-        '''
         if angle is not None:
             launch_ang = angle
         else:

@@ -19,7 +19,7 @@ def delete_fig_agg(fig_agg):
 
 layout = [[sg.Text("Dynamical Billiards Generator", font = ("Arial", 15))],
           [sg.Text("Ilija Gračanin, 2022", font = ("Arial", 8))],
-          [sg.Frame(layout=[[sg.Combo(['Square', 'Circle', 'Semi circle', 'Elipse', 'Equilateral triangle', 'Right angled triangle',
+          [sg.Frame(layout=[[sg.Combo(['Square', 'Circle', 'Semi circle', 'Elipse', 'Equilateral triangle', 'Right angled triangle', 'Hyperbolic'
                                        # 'Stadium', 'Bunimovich Billiard','Hyperbolic'
                                        ], size=(17, 1)
                                       , default_value='Circle', key='billiard_table')],
@@ -99,9 +99,9 @@ while True:
         #     fig_agg = draw_figure(window['-CANVAS-'].TKCanvas,
         #                           pp.printBunimovichBilliard(float(values[0]), float(values[1]), values[2]))
         #
-        # elif values['billiard_table'] == 'Hyperbolic':
-        #     fig_agg = draw_figure(window['-CANVAS-'].TKCanvas,
-        #                           pp.printHyperbolicBilliard(float(values[0]), float(values[1]), values[2]))
+        elif values['billiard_table'] == 'Hyperbolic':
+            fig_agg = draw_figure(window['-CANVAS-'].TKCanvas,
+                                  pp.printHyperbolicBilliard(float(values[0]), float(values[1]), values[2]))
 
     if event == "Generate gif":
         anim_angle = float(values[3]) * np.pi / 180
